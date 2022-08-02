@@ -32,7 +32,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StudantsWithotID'
+              type: array
+              items:
+                $ref: '#/components/schemas/StudantsWithotID'
         required: true
       responses:
         200:
@@ -159,8 +161,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/Studants'
         400:
           description: Bad request
@@ -209,6 +209,8 @@ paths:
           type: integer
           format: int64
       responses:
+        200:
+          description: sucsses
         400:
           description: Bad request
           content:
@@ -241,6 +243,7 @@ paths:
         - write:pets
         - read:pets
       x-codegen-request-body-name: body
+      
     put:
       tags:
       - Students
@@ -262,8 +265,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/StudantsWithotID'
         400:
           description: Bad request
@@ -295,7 +296,56 @@ paths:
         - read:pets
 
 
-  
+    patch:
+      tags:
+      - Students
+      summary: Change one detail of Student by ID
+      description: Change one detail of Student by ID
+      operationId: pathStudentID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/StudantsWithotID'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error400'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error403'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error404'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error500'
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
   
 
 
@@ -341,7 +391,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/coursesWithotID'
+              type: array
+              items:
+                $ref: '#/components/schemas/coursesWithotID'
         required: true
       responses:
         200:
