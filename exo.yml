@@ -19,6 +19,7 @@ servers:
 tags:
 - name: Students
 - name: courses
+- name: groupes
   description: Access to Petstore orders
 paths:
   /students:
@@ -669,6 +670,248 @@ paths:
 
 
 
+  /groupes:
+
+
+
+
+
+    get:
+      tags:
+      - groupes
+      summary: Get a list of groupes
+      operationId: getgroupe
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/groupes'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error400'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error403'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error404'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error500'
+
+
+
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
+      x-codegen-request-body-name: body
+  /groupes/{id}:
+    get:
+      tags:
+      - groupes
+      summary: Get a groupe
+      operationId: getgroupeid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/groupes'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error400'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error403'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error404'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error500'
+
+
+
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - groupes
+      summary: delet a groupes by ID
+      operationId: deletegroupeid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error400'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error403'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error404'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error500'
+
+
+
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
+      x-codegen-request-body-name: body
+    put:
+      tags:
+      - groupes
+      summary: Change groupe by ID
+      description: Multiple status values can be provided with comma separated strings
+      operationId: putgroupeID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/groupesWithotID'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error400'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error403'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error404'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/error500'
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -801,6 +1044,41 @@ components:
           type: integer
           format: int64
 
+
+    groupesWithotID:
+      required:
+      - name
+      - group
+      type: object
+      properties:
+        name:
+          type: string
+          example: G3
+        group:
+          type: string
+          example: goupe G3
+        id:
+          type: integer
+          format: int64
+
+
+    groupes:
+      required:
+      - name
+      - group
+      type: object
+      properties:
+        name:
+          type: string
+          example: G3
+        group:
+          type: string
+          example: goupe G3
+        id:
+          type: integer
+          format: int64
+
+
   securitySchemes:
     petstore_auth:
       type: oauth2
@@ -815,3 +1093,7 @@ components:
       name: api_key
       in: header
   
+
+
+
+
