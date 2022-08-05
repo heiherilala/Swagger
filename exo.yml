@@ -20,7 +20,6 @@ tags:
 - name: Students
 - name: courses
 - name: groupes
-  description: Access to Petstore orders
 paths:
   /students:
     post:
@@ -212,6 +211,7 @@ paths:
       responses:
         200:
           description: sucsses
+          
         400:
           description: Bad request
           content:
