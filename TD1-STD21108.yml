@@ -80,12 +80,6 @@ paths:
       responses:
         200:
           description: Successfully deleted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Students'
         400:
           description: Bad request
   /students/{id}:
@@ -275,12 +269,6 @@ paths:
       responses:
         200:
           description: Successfully deleted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Course'
         400:
           description: Bad request
 
@@ -463,12 +451,6 @@ paths:
       responses:
         200:
           description: Successfully deleted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Group'
         400:
           description: Bad request
 
