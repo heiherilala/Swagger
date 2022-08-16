@@ -1,0 +1,649 @@
+openapi: 3.0.1
+info:
+  title: STD21108
+  version: 1.0.0
+servers:
+- url: http://STD21108.io/
+paths:
+  /rooms:
+    post:
+      tags:
+      - Rooms
+      summary: Add a new room
+      operationId: addRoom
+      requestBody:
+        description: List of room object that needs to be added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateRoom'
+        required: true
+      responses:
+        200:
+          description: Room added
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rooms'
+        400:
+          description: Bad request
+    get:
+      tags:
+      - Rooms
+      summary: Get a list of rooms
+      operationId: getRoom
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rooms'
+        400:
+          description: Bad request
+
+    delete:
+      tags:
+      - Rooms
+      summary: Delete some rooms
+      operationId: deleteRooms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object 
+                properties:
+                  id:
+                    type: integer
+      responses:
+        200:
+          description: Successfully deleted
+        400:
+          description: Bad request
+  /rooms/{id}:
+    get:
+      tags:
+      - Rooms
+      summary: Get a room by ID
+      operationId: getRoomid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Rooms'
+        400:
+          description: Bad request
+
+    delete:
+      tags:
+      - Rooms
+      summary: Delete a room by ID
+      operationId: deleteRoomid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully deleted
+        400:
+          description: Bad request
+
+    put:
+      tags:
+      - Rooms
+      summary: Change Room by ID
+      
+      operationId: putRoomID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoom'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Rooms'
+        400:
+          description: Bad request
+
+    patch:
+      tags:
+      - Rooms
+      summary: Change some details of Room by ID
+      description: |
+        - "Possible changes on : number & capacity" 
+      operationId: pathRoomID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoom'
+            examples:
+              changeName:
+                summary: Change number
+                value:
+                  number : 'A5'
+              changeProjection:
+                summary: Change capacity
+                value:
+                  capacity : 30
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/CreateRoom'
+        400:
+          description: Bad request
+
+  /movie:
+    post:
+      tags:
+      - Movie
+      summary: Add a new movie
+      operationId: addmovie
+      requestBody:
+        description: movie object that needs to be added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateMovie'
+        required: true
+      responses:
+        200:
+          description: movie added
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: Bad request
+
+    get:
+      tags:
+      - Movie
+      summary: Get a list of movie
+      operationId: getmovie
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: Bad request
+    delete:
+      tags:
+      - Movie
+      summary: Delete some Movie
+      operationId: deleteMovie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object 
+                properties:
+                  id:
+                    type: integer
+      responses:
+        200:
+          description: Successfully deleted
+        400:
+          description: Bad request
+
+  /movie/{id}:
+    get:
+      tags:
+      - Movie
+      summary: Get a movie
+      operationId: getmovieid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: Bad request
+
+    delete:
+      tags:
+      - Movie
+      summary: Delete a movie by ID
+      operationId: deletemovieid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200: 
+          description: Successfully deleted
+          content: {}
+        400:
+          description: Bad request
+
+    put:
+      tags:
+      - Movie
+      summary: Change movie by ID
+      description: Multiple status values can be provided with comma separated strings
+      operationId: putmovieID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          maximum: 10.0
+          minimum: 1.0
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateMovie'
+        400:
+          description: Bad request
+    patch:
+      tags:
+      - Movie
+      summary: Change some details of Movie by ID
+      description: "Possible changes on : title & duration & summary & author & publicationDate"
+      operationId: pathMovieID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMovie'
+            examples:
+              changeName:
+                summary: Change title
+                value:
+                  title : 'La lune'
+              changeProjection:
+                summary: Change summary and author
+                value:
+                  summary : 'the tales of heros and demons'
+                  author : 'Herilala'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/CreateMovie'
+        400:
+          description: Bad request
+  /projections:
+    post:
+      tags:
+      - projections
+      summary: Add a new projections
+      operationId: addProjection
+      requestBody:
+        description: |
+          - Projection object that needs to be added
+          - The roomeID must be an existing room id
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateProjection'
+        required: true
+      responses:
+        200:
+          description: Projections added
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projection'
+        400:
+          description: Bad request
+    get:
+      tags:
+      - projections
+      summary: Get a list of projections
+      operationId: getprojection
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projection'
+        400:
+          description: Bad request
+    delete:
+      tags:
+      - projections
+      summary: Delete some projections
+      operationId: deleteProjections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object 
+                properties:
+                  id:
+                    type: integer
+      responses:
+        200:
+          description: Successfully deleted
+        400:
+          description: Bad request
+  /projections/{id}:
+    get:
+      tags:
+      - projections
+      summary: Get a projection
+      operationId: getprojectionid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projection'
+        400:
+          description: Bad request
+
+    delete:
+      tags:
+      - projections
+      summary: Delete a projection by ID
+      operationId: deleteprojectionid
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Successfully deleted
+          content: {}
+        400:
+          description: Bad request
+    put:
+      tags:
+      - projections
+      summary: Change projection by ID
+      description: Multiple status values can be provided with comma separated strings
+      operationId: putprojectionID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: |
+          - Projection object that needs to be modified
+          - The "roomeID" must be an existing room id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjection'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Projection'
+        400:
+          description: Bad request
+    patch:
+      tags:
+      - projections
+      summary: Change some details of projection by ID
+      description: "Possible changes on : roomeID & projectionDate "
+      operationId: pathProjectionID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: The "roomeID" must be an existing room id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjection'
+            examples:
+              changeName:
+                summary: Change roomeID
+                value:
+                  roomeID : '2'
+              changeProjection:
+                summary: Change projectionDate
+                value:
+                  projectionDate : '2022-12-07T16:30:00.0000'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/CreateProjection'
+        400:
+          description: Bad request
+components:
+  schemas:
+    CreateRoom:
+      type: object
+      properties:
+        number:
+          type: string
+          example: room A
+        capacity:
+          type: integer
+          example: 20
+    CreateMovie:
+      type: object
+      properties:
+        title:
+          type: string
+          example: One punsh man
+        duration:
+          type: string
+          format: time
+          example: 03:59
+        summary:
+          type: string
+          example: Saitama watches the news about an ongoing monster incident in Z-City and the increasing outbreak of monsters in the last decade.
+        author:
+          type: string
+          format: time
+          example: rakoto
+        publicationDate:
+          type: string
+          format: date
+    Movie:
+      type: object
+      properties:
+        title:
+          type: string
+          example: One punsh man
+        duration:
+          type: string
+          format: time
+          example: 03:59
+        summary:
+          type: string
+          example: Saitama watches the news about an ongoing monster incident in Z-City and the increasing outbreak of monsters in the last decade.
+        author:
+          type: string
+          example: rakoto
+        publicationDate:
+          type: string
+          format: date
+    Rooms:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        number:
+          type: string
+          example: room A
+        capacity:
+          type: integer
+          example: 20
+    CreateProjection:
+      type: object
+      properties:
+        roomeID:
+          type: integer
+          example: G3
+        projectionDate:
+          type: string
+          format: date-time
+    Projection:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        roomeID:
+          type: integer
+          example: G3
+        projectionDate:
+          type: string
+          format: date-time
